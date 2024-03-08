@@ -1,33 +1,29 @@
-let saldo = 0 // Variabel "saldo" telah dideklarasikan dengan nilai awal
+class BankAccount {
 
-function tambahSaldo() // Fungsi "tambahSaldo()" telah diimplementasikan menggunakan window.prompt() untuk menambahkan saldo
-{
-    const tambah = window.prompt("Masukkan jumlah saldo yang ingin ditambahkan: ")
-    if(tambah != null && tambah != "" && Number.isInteger(parseInt(tambah))){
-        saldo += parseInt(tambah)
-        console.log(saldo);
-        document.getElementById("saldo").innerHTML = saldo;
-        alert("Saldo berhasil ditambah menjadi Rp." + saldo)
-    } else {
-        alert("Input tidak valid")
+    constructor(saldo){
+        this.saldo = saldo;
     }
-}
 
-function kurangiSaldo() // Fungsi "kurangiSaldo()" telah diimplementasikan menggunakan window.prompt() untuk mengurangi saldo
-{
-    const kurang = window.prompt("Masukkan jumlah saldo yang ingin dikurangkan: ")
-    if(kurang != null && kurang != "" && Number.isInteger(parseInt(kurang))){
-        if (parseInt(kurang) > saldo) {
-            console.log("Saldo tidak mencukupi")
-            alert("Saldo Tidak Mencukupi")
-            kurangiSaldo()
-            return
+    deposit(amount){
+        if(amount != null && amount != "" && Number.isInteger(parseInt(amount))){
+            this.saldo += parseInt(amount)
+            return("Saldo berhasil ditambah menjadi Rp." + this.saldo)
+        } else {
+            return("Input tidak valid")
         }
-        saldo -= parseInt(kurang)
-        console.log(saldo);
-        document.getElementById("saldo").innerHTML = saldo;
-        alert("Saldo berhasil dikurangkan menjadi Rp." + saldo)
-    } else {
-        alert("Input tidak valid")
+    }
+
+    withdraw(amount){
+        if(amount != null && amount != "" && Number.isInteger(parseInt(amount))){
+            if (parseInt(amount) > this.saldo) {
+                console.log("Saldo tidak mencukupi")
+                alert("Saldo Tidak Mencukupi")
+                return
+            }
+            this.saldo -= parseInt(amount)
+            return("Saldo berhasil dikurangkan menjadi Rp." + this.saldo)
+        } else {
+            return("Input tidak valid")
+        }
     }
 }
