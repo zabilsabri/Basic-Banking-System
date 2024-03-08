@@ -5,25 +5,38 @@ class BankAccount {
     }
 
     deposit(amount){
-        if(amount != null && amount != "" && Number.isInteger(parseInt(amount))){
-            this.saldo += parseInt(amount)
-            return("Saldo berhasil ditambah menjadi Rp." + this.saldo)
-        } else {
-            return("Input tidak valid")
-        }
+        return new Promise((resolve, reject) => {
+            if(amount != null && amount != "" && Number.isInteger(parseInt(amount))){
+                const currentSaldo = this.saldo += parseInt(amount)
+                setTimeout(() => {
+                    resolve("Saldo berhasil ditambah menjadi Rp." + currentSaldo)
+                }, 2000);         
+            } else {
+                setTimeout(() => {
+                    reject("Input tidak valid");
+                }, 1000);
+            }
+        })
     }
 
     withdraw(amount){
-        if(amount != null && amount != "" && Number.isInteger(parseInt(amount))){
-            if (parseInt(amount) > this.saldo) {
-                console.log("Saldo tidak mencukupi")
-                alert("Saldo Tidak Mencukupi")
-                return
+        return new Promise((resolve, reject) => {
+            if(amount != null && amount != "" && Number.isInteger(parseInt(amount))){
+                if (parseInt(amount) > this.saldo) {
+                    setTimeout(() => {
+                        reject("Saldo tidak mencukupi")
+                    }, 1000);
+                } else {
+                    const currentSaldo = this.saldo -= parseInt(amount)
+                    setTimeout(() => {
+                        resolve("Saldo berhasil dikurangkan menjadi Rp." + currentSaldo)
+                    }, 2000);
+                }
+            } else {
+                setTimeout(() => {
+                    reject("Input tidak valid");
+                }, 1000);
             }
-            this.saldo -= parseInt(amount)
-            return("Saldo berhasil dikurangkan menjadi Rp." + this.saldo)
-        } else {
-            return("Input tidak valid")
-        }
+        })
     }
 }
